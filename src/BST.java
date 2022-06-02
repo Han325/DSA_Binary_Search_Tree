@@ -2,12 +2,13 @@ import com.sun.source.tree.Tree;
 
 public class BST {
 
+    // Node structure
     public class TreeNode {
         int data;
         TreeNode left;
         TreeNode right;
 
-        public TreeNode(int data){
+        public TreeNode(int data) {
             this.data = data;
             left = null;
             right = null;
@@ -17,10 +18,37 @@ public class BST {
     // root node of the BST
     TreeNode root;
 
+    // Constructor for BST
+    public BST() {
+        root = null;
+    }
 
-    // search functions
-    // searchTree() function
-    public void searchTree(int data) {
+    // Insert function
+    public void insert(int data) {
+        root = insertNode(root, data);
+    }
+
+    //BST Insert Node helper function
+    public TreeNode insertNode(TreeNode prevRoot, int data) {
+        // Check if root is empty, if empty return root node
+        if (prevRoot == null) {
+            prevRoot = new TreeNode(data);
+            return prevRoot;
+        }
+
+        if (data > prevRoot.data) {
+            prevRoot.right = insertNode(root.right, data);
+        } else if (data < prevRoot.data) {
+            prevRoot.left = insertNode(root.left, data);
+        }
+
+        return root;
+
+    }
+
+
+    // Search function
+    public void search(int data) {
         if (root == null) {
             System.out.println("There is no tree!");
         } else {
@@ -36,7 +64,7 @@ public class BST {
         } else if (data < prevRoot.data) {
             System.out.println(data + " < " + prevRoot.data + ". Searching for left subtree.");
             searchNode(data, prevRoot.left);
-        } else if (data > prevRoot.data ) {
+        } else if (data > prevRoot.data) {
             System.out.println(data + " > " + prevRoot.data + ". Searching for right subtree.");
             searchNode(data, prevRoot.right);
         } else if (prevRoot == null) {
@@ -46,63 +74,25 @@ public class BST {
         return prevRoot;
     }
 
-    // traversal functions
-    // preorder
-
-
-    // inorder
-    // postorder
-
-    // Constructor for BST
-    public BST(){
-        root = null;
-    }
-
-    /**
-     * BST insert function
-     */
-    public void insert(int data){
+    // Delete function
+    public void delete(int data) {
         root = insertNode(root, data);
     }
 
-    /**
-     * BST Insert Node function
-     */
-    public TreeNode insertNode(TreeNode prevRoot, int data){
-        // Check if root is empty, if empty return root node
-        if (prevRoot == null) {
-            prevRoot = new TreeNode(data);
-            return prevRoot;
-        }
-
-        if (data > prevRoot.data){
-            prevRoot.right = insertNode(root.right, data);
-        } else if (data < prevRoot.data){
-            prevRoot.left = insertNode(root.left, data);
-        }
-
-        return root;
-
-    }
-
-    public void delete(int data){
-        root = insertNode(root, data);
-    }
-
-    public TreeNode deleteNode(TreeNode prevRoot, int data){
+    public TreeNode deleteNode(TreeNode prevRoot, int data) {
         // Check if root is empty, if empty return root node
         if (prevRoot == null) {
             return prevRoot;
         }
 
-        if (data > root.data){
+        if (data > root.data) {
             prevRoot.right = deleteNode(prevRoot.right, data);
-        } else if (data < root.data){
+        } else if (data < root.data) {
             prevRoot.left = deleteNode(prevRoot.left, data);
         } else {
-            if (prevRoot.left == null){
+            if (prevRoot.left == null) {
                 return prevRoot.right;
-            } else if (prevRoot.right == null){
+            } else if (prevRoot.right == null) {
                 return prevRoot.left;
             }
 
@@ -117,9 +107,10 @@ public class BST {
 
     }
 
-    private int minValue(TreeNode prevRoot){
+    // helper function to find the inorder successor of the tree
+    private int minValue(TreeNode prevRoot) {
         int minVal = prevRoot.data;
-        while (prevRoot.left != null){
+        while (prevRoot.left != null) {
             minVal = prevRoot.left.data;
             prevRoot = prevRoot.left;
         }
@@ -127,9 +118,11 @@ public class BST {
         return minVal;
     }
 
+    // traversal functions
 
-
-
+    // preorder
+    // inorder
+    // postorder
 
 
 }
