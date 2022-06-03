@@ -1,5 +1,3 @@
-import com.sun.source.tree.Tree;
-
 public class BST {
 
     // Node structure
