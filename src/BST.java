@@ -118,11 +118,53 @@ public class BST {
         return minVal;
     }
 
-    // traversal functions
+    // Traversal Functions
+    // Preorder Traversal
+    public void preorder() {
+        System.out.println("Preorder Traversal:\n");
+        preorderHelper(root);
+    }
+    // recursive helper function (preorder)
+    public static void preorderHelper(TreeNode node) {
+        if (node == null) {
+            return;
+        }
 
-    // preorder
-    // inorder
-    // postorder
+        System.out.print(node.data + " ");
+        preorderHelper(node.left);
+        preorderHelper(node.right);
+    }
 
+    // Inorder Traversal
+    public void inorder() {
+        System.out.println("Inorder Traversal:\n");
+        inorderHelper(root);
+    }
+    // recursive helper function (inorder)
+    public static void inorderHelper(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+
+        inorderHelper(node.left);
+        System.out.print(node.data + " ");
+        inorderHelper(node.right);
+    }
+
+    // Postorder Traversal
+    public void postorder() {
+        System.out.println("Postorder Traversal:\n");
+        postorderHelper(root);
+    }
+    // recursive helper function (postorder)
+    public static void postorderHelper(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+
+        postorderHelper(node.left);
+        postorderHelper(node.right);
+        System.out.print(node.data + " ");
+    }
 
 }
