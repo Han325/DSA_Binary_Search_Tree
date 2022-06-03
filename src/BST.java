@@ -93,8 +93,7 @@ public class BST {
             } else if (prevRoot.right == null) {
                 return prevRoot.left;
             }
-
-            prevRoot.data = minValue(prevRoot.right);
+            prevRoot.data = findMinValue(prevRoot.right);
 
             prevRoot.right = deleteNode(prevRoot.right, prevRoot.data);
 
@@ -106,7 +105,7 @@ public class BST {
     }
 
     // helper function to find the inorder successor of the tree
-    private int minValue(TreeNode prevRoot) {
+    private int findMinValue(TreeNode prevRoot) {
         int minVal = prevRoot.data;
         while (prevRoot.left != null) {
             minVal = prevRoot.left.data;
