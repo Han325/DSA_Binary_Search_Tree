@@ -33,6 +33,7 @@ public class BST {
     public static TreeNode insertNode(TreeNode prevRoot, int data) {
         // Check if root is empty, if empty return root node
         if (prevRoot == null) {
+            System.out.println("There is no existing root. " + "Setting " + data + " as root TreeNode.");
             prevRoot = new TreeNode(data);
             return prevRoot;
         }
@@ -90,34 +91,50 @@ public class BST {
 
     // Delete function
     public static void delete(int data) {
+        System.out.println("Processing..... Logs down below: ");
         root = deleteNode(root, data);
     }
 
-    public static TreeNode deleteNode(TreeNode currentRoot, int data) {
+    public static TreeNode deleteNode(TreeNode prevRoot, int data) {
         // Check if root is empty, if empty return root node
-        if (currentRoot == null) {
-            System.out.println("Cannot find the TreeNode!");
+        if (prevRoot == null) {
+            System.out.println("Failed to find the TreeNode specified.");
             return null;
         }
 
-        if (data > currentRoot.data) {
-            currentRoot.right = deleteNode(currentRoot.right, data);
-        } else if (data < currentRoot.data) {
-            currentRoot.left = deleteNode(currentRoot.left, data);
+        if (data > prevRoot.data) {
+            System.out.println("Scanning node.... Current node is " + prevRoot.data);
+            System.out.println(data + ">" + prevRoot.data + " Recurring down the tree.");
+            prevRoot.right = deleteNode(prevRoot.right, data);
+        } else if (data < prevRoot.data) {
+            System.out.println("Scanning node.... Current node is " + prevRoot.data);
+            System.out.println(data + "<" + prevRoot.data + " Recurring down the tree.");
+            prevRoot.left = deleteNode(prevRoot.left, data);
         } else {
-            if (currentRoot.left == null) {
-                return currentRoot.right;
-            } else if (currentRoot.right == null) {
-                return currentRoot.left;
+            System.out.println("Scanning node.... Current node is " + prevRoot.data);
+            if (prevRoot.left == null && prevRoot.right == null){
+                System.out.println(prevRoot.data + " is found to be a leaf node. Immediate deletion.");
+                prevRoot = null;
+                return prevRoot;
+            }  else if (prevRoot.left == null) {
+                System.out.println(prevRoot.data + " is a node with a right child.");
+                System.out.println("Swapping " + data + " with its right child: " + prevRoot.right.data);
+                return prevRoot.right;
+            } else if (prevRoot.right == null) {
+                System.out.println(prevRoot.data + " is a node with a left child.");
+                System.out.println("Swapping " + data + " with its left child: " + prevRoot.left.data);
+                return prevRoot.left;
             }
-            currentRoot.data = findMinValue(currentRoot.right);
 
-            currentRoot.right = deleteNode(currentRoot.right, currentRoot.data);
+            System.out.println(prevRoot.data + " is a node with two children.");
+            System.out.println("Finding its in-order successor to replace its position.");
+            prevRoot.data = findMinValue(prevRoot.right);
+
+            prevRoot.right = deleteNode(prevRoot.right, prevRoot.data);
 
         }
 
-
-        return currentRoot;
+        return prevRoot;
 
     }
 
@@ -135,8 +152,9 @@ public class BST {
     // Traversal Functions
     // Preorder Traversal
     public static void preorder() {
-        System.out.println("Preorder Traversal:\n");
+        System.out.print("Preorder Traversal: ");
         preorderHelper(root);
+        System.out.println(" ");
     }
 
     // recursive helper function (preorder)
@@ -152,8 +170,9 @@ public class BST {
 
     // Inorder Traversal
     public static void inorder() {
-        System.out.println("Inorder Traversal:\n");
+        System.out.print("Inorder Traversal: ");
         inorderHelper(root);
+        System.out.println(" ");
     }
 
     // recursive helper function (inorder)
@@ -169,8 +188,9 @@ public class BST {
 
     // Postorder Traversal
     public static void postorder() {
-        System.out.println("Postorder Traversal:\n");
+        System.out.print("Postorder Traversal: ");
         postorderHelper(root);
+        System.out.println(" ");
     }
 
     // recursive helper function (postorder)
@@ -232,49 +252,6 @@ public class BST {
 
         System.out.println("Welcome to Binary Search Tree Visualisation");
         startProgram();
-//        while (!entryQuit) {
-//            System.out.println("");
-//            System.out.println("What functions of the BST do you wish to do?");
-//            System.out.println("Common Operations:");
-//            System.out.println("1. Insert");
-//            System.out.println("2. Search");
-//            System.out.println("3. Delete");
-//            System.out.println(" ");
-//            System.out.println("Transversal Operations");
-//            System.out.println("4. Pre-order");
-//            System.out.println("5. In-order");
-//            System.out.println("6. Post-order");
-//            System.out.println(" ");
-//            System.out.println("Quit the program");
-//            System.out.println("7. Quit");
-//
-//            // Collect user input
-//            userInput = input.nextLine();
-//
-//            if (userInput.equals("1")) {
-//                dataEntry("1");
-//            } else if (userInput.equals("2")) {
-//                dataEntry("2");
-//            } else if (userInput.equals("3")) {
-//                dataEntry("3");
-//
-//            } else if (userInput.equals("4")) {
-//
-//            } else if (userInput.equals("5")) {
-//
-//            } else if (userInput.equals("6")) {
-//
-//            } else if (userInput.equals("7")) {
-//                entryQuit = true;
-//
-//            } else {
-//                System.out.println("Please key in the correct menu option.");
-//            }
-//
-//
-//        }
-
-
     }
 
     public static void startProgram(){
@@ -296,7 +273,7 @@ public class BST {
             System.out.println("Quit the program");
             System.out.println("7. Quit");
 
-            System.out.print("Please enter your choice:");
+            System.out.print("Please enter your choice: ");
             // Collect user input
             userInput = input.nextLine();
 
@@ -309,16 +286,18 @@ public class BST {
             } else if (userInput.equals("3")) {
                 System.out.println("You have selected the delete function.");
                 dataEntry("3");
-
             } else if (userInput.equals("4")) {
-
+                System.out.println("You have selected the pre-order transversal function.");
+                preorder();
             } else if (userInput.equals("5")) {
-
+                System.out.println("You have selected the in-order transversal function.");
+                inorder();
             } else if (userInput.equals("6")) {
-
+                System.out.println("You have selected the end-order transversal function.");
+                postorder();
             } else if (userInput.equals("7")) {
+                System.out.println("Thanks for using the program, wish to see you again.");
                 entryQuit = true;
-
             } else {
                 System.out.println("Please key in the correct menu option.");
             }
