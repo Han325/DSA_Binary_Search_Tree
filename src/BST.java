@@ -298,6 +298,7 @@ public class BST {
             } else if (userInput.equals("7")) {
                 System.out.println("Thanks for using the program, wish to see you again.");
                 entryQuit = true;
+                break;
             } else {
                 System.out.println("Please key in the correct menu option.");
             }
