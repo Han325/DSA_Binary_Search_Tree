@@ -231,6 +231,7 @@ public class BST {
 
             } catch (Exception e) {
                 System.out.println("Please enter an integer.");
+                break;
             }
 
 
