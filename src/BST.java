@@ -266,12 +266,12 @@ public class BST {
             System.out.println("2. Search");
             System.out.println("3. Delete");
             System.out.println(" ");
-            System.out.println("Transversal Operations");
+            System.out.println("Transversal Operations:");
             System.out.println("4. Pre-order");
             System.out.println("5. In-order");
             System.out.println("6. Post-order");
             System.out.println(" ");
-            System.out.println("Quit the program");
+            System.out.println("Quit the program:");
             System.out.println("7. Quit");
 
             System.out.print("Please enter your choice: ");
